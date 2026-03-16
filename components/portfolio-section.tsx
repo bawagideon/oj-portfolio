@@ -47,7 +47,7 @@ export function PortfolioSection({ data = portfolioData }: PortfolioSectionProps
             <div className="aspect-[4/3] overflow-hidden bg-background">
               <img
                 src={project.image || "/placeholder.svg"}
-                alt={project.title}
+                alt={`Screenshot of ${project.title}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>

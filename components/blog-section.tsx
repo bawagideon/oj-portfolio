@@ -22,7 +22,7 @@ export function BlogSection({ data = blogData }: BlogSectionProps) {
             <div className="aspect-video overflow-hidden bg-background">
               <img
                 src={post.image || "/placeholder.svg"}
-                alt={post.title}
+                alt={`Cover image for blog post: ${post.title}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
