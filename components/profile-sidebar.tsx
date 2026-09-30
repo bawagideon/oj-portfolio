@@ -7,13 +7,9 @@ import {
   MapPin,
   Linkedin,
   Github,
-  Twitter,
-  FileDown,
   Check,
   Copy,
   ExternalLink,
-  ShieldCheck,
-  Award,
 } from 'lucide-react'
 import { CredlyBadgeLogo } from '@/components/icons/credly-icon'
 import { profileData } from '@/lib/portfolio-data'
@@ -55,43 +51,13 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
           </div>
         </div>
 
-        <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight mt-1 mb-1">
+        <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight mt-1 mb-2">
           {data.name}
         </h1>
 
-        <div className="space-y-1.5 mb-4">
-          <p className="text-xs md:text-sm font-semibold text-accent bg-accent/10 px-3.5 py-1.5 rounded-full inline-block">
-            {data.title}
-          </p>
-          <p className="text-[11px] md:text-xs text-muted-foreground font-medium">
-            {data.subtitle}
-          </p>
-        </div>
-
-        {/* Credly Verified Credentials Banner */}
-        {data.social.credly && (
-          <a
-            href={data.social.credly}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full mb-4 flex items-center justify-between gap-2 p-2.5 rounded-xl bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-transparent border border-orange-500/30 hover:border-orange-500 transition-all group"
-            title="View verified credentials on Credly"
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#FF6B00] flex items-center justify-center text-white flex-shrink-0 shadow-sm shadow-orange-500/30">
-                <CredlyBadgeLogo className="w-5 h-5 text-white" />
-              </div>
-              <div className="text-left">
-                <div className="flex items-center gap-1">
-                  <span className="text-xs font-bold text-foreground">Credly Verified</span>
-                  <ShieldCheck className="w-3.5 h-3.5 text-orange-500" />
-                </div>
-                <span className="text-[10px] text-muted-foreground">4 Official Badges (ISC2 & Cisco)</span>
-              </div>
-            </div>
-            <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all" />
-          </a>
-        )}
+        <p className="text-xs md:text-sm text-muted-foreground font-medium max-w-[280px] leading-relaxed mx-auto mb-4">
+          {data.title}
+        </p>
       </div>
 
       {/* Divider */}
@@ -171,28 +137,18 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
         </div>
       </div>
 
-      {/* Action Buttons: CV Download & Social Links */}
+      {/* Action Buttons: View CV & Social Links */}
       <div className="mt-5 space-y-3">
         {data.cvPdfUrl && (
-          <div className="grid grid-cols-2 gap-2">
-            <a
-              href={data.cvPdfUrl}
-              download="Onyia_Okwudili_Oliver_Cv.pdf"
-              className="flex items-center justify-center gap-1.5 px-3 py-2.5 bg-accent text-accent-foreground font-semibold text-xs rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all"
-            >
-              <FileDown className="w-4 h-4" />
-              <span>Download CV</span>
-            </a>
-            <a
-              href={data.cvPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 px-3 py-2.5 bg-secondary hover:bg-accent/10 border border-border hover:border-accent text-foreground font-semibold text-xs rounded-xl transition-all"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span>View PDF</span>
-            </a>
-          </div>
+          <a
+            href={data.cvPdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-semibold text-xs md:text-sm rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all group"
+          >
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <span>View Curriculum Vitae (PDF)</span>
+          </a>
         )}
 
         {/* Social Icons Bar */}

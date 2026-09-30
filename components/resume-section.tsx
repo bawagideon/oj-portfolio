@@ -14,7 +14,6 @@ import {
   Users,
   Medal,
   Sparkles,
-  FileDown,
   Building2,
   Layers,
 } from 'lucide-react'
@@ -41,15 +40,16 @@ export function ResumeSection({ data = resumeData }: ResumeSectionProps) {
           <div className="w-12 h-1 bg-accent rounded-full" />
         </div>
 
-        {/* Action Button: Download Official CV */}
+        {/* Action Button: View Official CV */}
         <div className="flex items-center gap-2.5">
           <a
             href={profileData.cvPdfUrl}
-            download="Onyia_Okwudili_Oliver_Cv.pdf"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-semibold text-xs md:text-sm rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-semibold text-xs md:text-sm rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all group"
           >
-            <FileDown className="w-4 h-4" />
-            <span>Download CV (PDF)</span>
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <span>View CV (PDF)</span>
           </a>
         </div>
       </div>

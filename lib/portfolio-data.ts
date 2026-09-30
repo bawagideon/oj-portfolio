@@ -21,8 +21,8 @@ export interface ProfileData {
 
 export const profileData: ProfileData = {
   name: 'Onyia Okwudili Oliver',
-  title: 'IT Support & Cybersecurity Specialist',
-  subtitle: 'SAP Junior Consultant | Enterprise Systems & IT Operations',
+  title: 'SAP Junior Consultant | Enterprise Systems | Cybersecurity Enthusiast | IT Operations',
+  subtitle: '',
   avatar: '/oliver-onyia-avatar.jpg',
   email: 'okwudilionyia139@gmail.com',
   phone: '+234 907 624 2001',

@@ -7,7 +7,6 @@ import {
   MapPin,
   Send,
   Linkedin,
-  FileDown,
   Check,
   Copy,
   ExternalLink,
@@ -267,11 +266,12 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
 
                 <a
                   href={profileData.cvPdfUrl}
-                  download="Onyia_Okwudili_Oliver_Cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-accent transition-colors"
                 >
-                  <FileDown className="w-4 h-4" />
-                  <span>Download Curriculum Vitae (PDF)</span>
+                  <ExternalLink className="w-4 h-4" />
+                  <span>View Curriculum Vitae (PDF)</span>
                 </a>
               </div>
             </form>
