@@ -14,9 +14,33 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Onyia Okwudili Oliver - IT Support & Cybersecurity Specialist',
-  description: 'Portfolio of Onyia Okwudili Oliver, an IT Support and Cybersecurity Specialist with expertise in SAP S/4HANA, vulnerability assessment, and IT infrastructure management',
-  generator: 'v0.app',
+  title: 'Onyia Okwudili Oliver | IT Support, SAP S/4HANA & Cybersecurity Specialist',
+  description:
+    'Professional portfolio of Onyia Okwudili Oliver — IT Support Specialist and SAP Junior Consultant with expertise in SAP S/4HANA (SD), mission-critical network infrastructure, vulnerability assessment (OWASP), and digital banking systems. Verified on Credly.',
+  keywords: [
+    'Onyia Okwudili Oliver',
+    'Okwudili Onyia',
+    'IT Support Specialist',
+    'SAP S/4HANA',
+    'SAP SD Module',
+    'Cybersecurity Specialist',
+    'ISC2 Certified in Cybersecurity',
+    'Cisco Networking Academy',
+    'Cobranet Limited',
+    'Dangote Group PLC',
+    'OPay Blue Ridge MFB',
+    'Digital Encode',
+    'Credly Verified',
+  ],
+  authors: [{ name: 'Onyia Okwudili Oliver' }],
+  openGraph: {
+    title: 'Onyia Okwudili Oliver | IT Support, SAP S/4HANA & Cybersecurity Specialist',
+    description:
+      'Professional portfolio and verified credentials for Onyia Okwudili Oliver — SAP S/4HANA, ISP operations, digital banking infrastructure, and cybersecurity vulnerability assessment.',
+    url: 'https://okwudili-onyia-oliver-website.netlify.app',
+    siteName: 'Onyia Okwudili Oliver Portfolio',
+    type: 'website',
+  },
   icons: {
     icon: [
       {
@@ -42,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${outfit.variable} ${jakarta.variable} font-sans antialiased bg-background`}>
         {children}
         <Analytics />
