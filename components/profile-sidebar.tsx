@@ -147,7 +147,7 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-semibold text-xs md:text-sm rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all group"
           >
             <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            <span>View Curriculum Vitae (PDF)</span>
+            <span>View Curriculum Vitae</span>
           </a>
         )}
 

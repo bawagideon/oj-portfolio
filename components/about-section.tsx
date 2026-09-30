@@ -180,14 +180,16 @@ export function AboutSection({ data = aboutData }: AboutSectionProps) {
             {[...data.clients, ...data.clients].map((client, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-36 h-20 md:w-44 md:h-24 bg-secondary/70 rounded-2xl border border-border flex flex-col items-center justify-center p-3 hover:border-accent transition-all group"
+                className="flex-shrink-0 w-40 md:w-48 h-24 md:h-28 bg-secondary/80 hover:bg-secondary rounded-2xl border border-border flex flex-col items-center justify-center p-3 hover:border-accent hover:shadow-md transition-all group"
               >
-                <img
-                  src={client.logo || '/placeholder.svg'}
-                  alt={client.name}
-                  className="max-h-10 md:max-h-12 w-auto object-contain opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all"
-                />
-                <span className="text-[10px] md:text-[11px] font-semibold text-muted-foreground group-hover:text-foreground mt-1 truncate max-w-full">
+                <div className="w-11 h-11 md:w-13 md:h-13 rounded-xl overflow-hidden bg-white p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <span className="text-[10px] md:text-xs font-semibold text-muted-foreground group-hover:text-foreground mt-2 truncate max-w-full text-center px-1">
                   {client.name}
                 </span>
               </div>

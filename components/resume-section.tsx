@@ -49,7 +49,7 @@ export function ResumeSection({ data = resumeData }: ResumeSectionProps) {
             className="inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-semibold text-xs md:text-sm rounded-xl shadow-md shadow-accent/20 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all group"
           >
             <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            <span>View CV (PDF)</span>
+            <span>View Curriculum Vitae</span>
           </a>
         </div>
       </div>
@@ -214,36 +214,47 @@ export function ResumeSection({ data = resumeData }: ResumeSectionProps) {
 
                 <div className="p-5 md:p-7 bg-secondary/60 hover:bg-secondary rounded-2xl md:rounded-3xl border border-border hover:border-accent transition-all duration-300 shadow-sm">
                   {/* Top Bar */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h4 className="text-lg md:text-xl font-bold text-foreground">
-                          {item.title}
-                        </h4>
-                        {item.employmentType && (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                            {item.employmentType}
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
+                    <div className="flex items-start gap-3.5">
+                      {item.logo && (
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl border border-border bg-white p-1.5 flex-shrink-0 flex items-center justify-center overflow-hidden shadow-xs">
+                          <img
+                            src={item.logo}
+                            alt={item.company}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h4 className="text-lg md:text-xl font-bold text-foreground">
+                            {item.title}
+                          </h4>
+                          {item.employmentType && (
+                            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                              {item.employmentType}
+                            </span>
+                          )}
+                          {item.isCurrent && (
+                            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                              Current Role
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground font-medium mt-1">
+                          <span className="flex items-center gap-1 text-foreground font-semibold">
+                            <Building2 className="w-3.5 h-3.5 text-accent" />
+                            {item.company}
                           </span>
-                        )}
-                        {item.isCurrent && (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                            Current Role
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5" />
+                            {item.location}
                           </span>
-                        )}
-                      </div>
-                      <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground font-medium mt-1">
-                        <span className="flex items-center gap-1 text-foreground font-semibold">
-                          <Building2 className="w-3.5 h-3.5 text-accent" />
-                          {item.company}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {item.location}
-                        </span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs md:text-sm font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-xl w-fit">
+                    <div className="flex items-center gap-1.5 text-xs md:text-sm font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-xl w-fit flex-shrink-0">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{item.period}</span>
                     </div>
@@ -298,17 +309,36 @@ export function ResumeSection({ data = resumeData }: ResumeSectionProps) {
                 key={index}
                 className="p-5 md:p-7 bg-secondary/60 hover:bg-secondary rounded-2xl md:rounded-3xl border border-border hover:border-accent transition-all duration-300"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  <div>
-                    <h4 className="text-lg md:text-xl font-bold text-foreground">
-                      {edu.degree}
-                    </h4>
-                    <p className="text-xs md:text-sm text-muted-foreground font-medium mt-0.5">
-                      {edu.institution} • {edu.location}
-                    </p>
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
+                  <div className="flex items-start gap-3.5">
+                    {edu.logo && (
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl border border-border bg-white p-1.5 flex-shrink-0 flex items-center justify-center overflow-hidden shadow-xs">
+                        <img
+                          src={edu.logo}
+                          alt={edu.institution}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="text-lg md:text-xl font-bold text-foreground">
+                        {edu.degree}
+                      </h4>
+                      <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground font-medium mt-1">
+                        <span className="flex items-center gap-1 text-foreground font-semibold">
+                          <GraduationCap className="w-3.5 h-3.5 text-accent" />
+                          {edu.institution}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3.5 h-3.5" />
+                          {edu.location}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xs md:text-sm font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-xl w-fit">
-                    {edu.period}
+                  <div className="text-xs md:text-sm font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-xl w-fit flex-shrink-0">
+                    <Calendar className="w-3.5 h-3.5 inline mr-1" />
+                    <span>{edu.period}</span>
                   </div>
                 </div>
 

@@ -113,12 +113,13 @@ export const aboutData = {
     },
   ],
   clients: [
-    { name: 'Dangote Group PLC', logo: '/generated/client_logo_1_1773677623152.png' },
-    { name: 'Cobranet Limited', logo: '/generated/client_logo_2_1773677639359.png' },
-    { name: 'Blue Ridge MFB (OPay)', logo: '/generated/client_logo_3_1773677654523.png' },
-    { name: 'Digital Encode Ltd', logo: '/generated/client_logo_4_1773677671355.png' },
-    { name: 'Molchec Construction', logo: '/generated/client_logo_6_1773677706427.png' },
-    { name: 'Caleb University', logo: '/generated/client_logo_5_1773677688622.png' },
+    { name: 'Cobranet Limited', logo: '/logos/cobranet.jpg' },
+    { name: 'Blue Ridge MFB (OPay)', logo: '/logos/opay.jpg' },
+    { name: 'Dangote Group PLC', logo: '/logos/dangote.jpg' },
+    { name: 'Molchec Construction', logo: '/logos/molchec.jpg' },
+    { name: 'Digital Encode Ltd', logo: '/logos/digital-encode.jpg' },
+    { name: 'Caleb University', logo: '/logos/caleb-university.jpg' },
+    { name: 'University of Lagos', logo: '/logos/unilag.jpg' },
   ],
 }
 
@@ -127,6 +128,7 @@ export const resumeData = {
     {
       degree: 'Bachelor of Science (B.Sc.) in Computer Science',
       institution: 'Caleb University',
+      logo: '/logos/caleb-university.jpg',
       location: 'Lagos, Nigeria',
       period: '2019 – 2023',
       thesis:
@@ -140,6 +142,7 @@ export const resumeData = {
     {
       degree: 'Diploma in Computer Science',
       institution: 'University of Lagos',
+      logo: '/logos/unilag.jpg',
       location: 'Lagos, Nigeria',
       period: '2019 – 2020',
       thesis: '',
@@ -153,6 +156,7 @@ export const resumeData = {
       title: 'Operations Support',
       employmentType: 'Voluntary',
       company: 'Cobranet Limited',
+      logo: '/logos/cobranet.jpg',
       location: 'Lekki Phase 1, Lagos',
       period: 'February 2026 – Present',
       isCurrent: true,
@@ -167,6 +171,7 @@ export const resumeData = {
     {
       title: 'Inbound Customer Representative',
       company: 'Blue Ridge Microfinance Bank (OPAY)',
+      logo: '/logos/opay.jpg',
       location: 'Lagos',
       period: 'June 2025 – August 2026',
       isCurrent: false,
@@ -181,6 +186,7 @@ export const resumeData = {
     {
       title: 'Field Support Engineer / SAP Junior Consultant (NYSC)',
       company: 'Dangote Group PLC',
+      logo: '/logos/dangote.jpg',
       location: 'Lagos',
       period: 'Jun 2024 – May 2025',
       isCurrent: false,
@@ -197,6 +203,7 @@ export const resumeData = {
     {
       title: 'Project Support Staff',
       company: 'Molchec Construction Company Ltd',
+      logo: '/logos/molchec.jpg',
       location: 'Lagos',
       period: 'October 2023 – March 2024',
       isCurrent: false,
@@ -209,6 +216,7 @@ export const resumeData = {
     {
       title: 'Cybersecurity Intern',
       company: 'Digital Encode Ltd',
+      logo: '/logos/digital-encode.jpg',
       location: 'Lagos',
       period: 'July 2022 – December 2022',
       isCurrent: false,

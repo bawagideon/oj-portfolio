@@ -271,7 +271,7 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
                   className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-accent transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>View Curriculum Vitae (PDF)</span>
+                  <span>View Curriculum Vitae</span>
                 </a>
               </div>
             </form>
