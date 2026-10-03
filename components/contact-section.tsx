@@ -31,7 +31,7 @@ export function ContactSection() {
               <span className="text-base md:text-lg">GitHub</span>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/onyia-oliver-okwudili-125a04235"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 text-foreground transition-colors hover:text-muted-foreground"

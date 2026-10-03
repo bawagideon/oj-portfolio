@@ -30,7 +30,7 @@ export const profileData: ProfileData = {
   location: 'Lagos, Nigeria',
   cvPdfUrl: '/Onyia_Okwudili_Oliver_Cv.pdf',
   social: {
-    linkedin: 'https://www.linkedin.com/in/okwudili-onyia',
+    linkedin: 'https://www.linkedin.com/in/onyia-oliver-okwudili-125a04235',
     credly: 'https://www.credly.com/users/okwudili-onyia',
     github: '',
     twitter: '',
@@ -522,7 +522,7 @@ export const contactData = {
   phone: '+234 907 624 2001',
   location: 'Lagos, Nigeria',
   credlyUrl: 'https://www.credly.com/users/okwudili-onyia',
-  linkedinUrl: 'https://www.linkedin.com/in/okwudili-onyia',
+  linkedinUrl: 'https://www.linkedin.com/in/onyia-oliver-okwudili-125a04235',
   cvPdfUrl: '/Onyia_Okwudili_Oliver_Cv.pdf',
   mapEmbedUrl:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253682.45932698045!2d3.1191195!3d6.5480357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng',
