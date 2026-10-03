@@ -47,7 +47,7 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
           {/* Active Status Badge */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 bg-background/95 backdrop-blur-md border border-border rounded-full shadow-md whitespace-nowrap">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[11px] font-semibold text-foreground tracking-wide">Available for Hire</span>
+            <span className="text-[11px] font-semibold text-foreground tracking-wide">Available</span>
           </div>
         </div>
 
