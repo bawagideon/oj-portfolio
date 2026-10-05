@@ -217,11 +217,24 @@ export function ResumeSection({ data = resumeData }: ResumeSectionProps) {
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
                     <div className="flex items-start gap-3.5">
                       {item.logo && (
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl border border-border bg-white p-1.5 flex-shrink-0 flex items-center justify-center overflow-hidden shadow-xs">
+                        <div
+                          className="w-12 h-12 md:w-14 md:h-14 rounded-2xl border border-border flex-shrink-0 flex items-center justify-center overflow-hidden shadow-xs"
+                          style={{
+                            backgroundColor: item.company.includes('Dangote')
+                              ? '#1c174d'
+                              : item.company.includes('Molchec')
+                              ? '#738c9d'
+                              : '#ffffff',
+                          }}
+                        >
                           <img
                             src={item.logo}
                             alt={item.company}
-                            className="max-h-full max-w-full object-contain"
+                            className={`max-h-full max-w-full ${
+                              item.company.includes('Dangote') || item.company.includes('Molchec')
+                                ? 'w-full h-full object-cover'
+                                : 'p-1.5 object-contain'
+                            }`}
                           />
                         </div>
                       )}

@@ -1,17 +1,6 @@
 import type { Metadata } from 'next'
-import { Outfit, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-
-const outfit = Outfit({ 
-  subsets: ["latin"],
-  variable: '--font-outfit'
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: '--font-jakarta'
-});
 
 export const metadata: Metadata = {
   title: 'Onyia Okwudili Oliver | SAP Junior Consultant | Enterprise Systems | Cybersecurity Enthusiast | IT Operations',
@@ -69,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${outfit.variable} ${jakarta.variable} font-sans antialiased bg-background`}>
+      <body className="font-sans antialiased bg-background">
         {children}
         <Analytics />
       </body>
