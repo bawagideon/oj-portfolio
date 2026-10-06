@@ -148,20 +148,6 @@ export const aboutData = {
       category: 'Cybersecurity & GRC Advisory',
       badgeBg: '#ffffff',
     },
-    {
-      name: 'Caleb University',
-      logo: '/logos/caleb-university.jpg',
-      url: 'https://calebuniversity.edu.ng',
-      category: 'B.Sc. Computer Science',
-      badgeBg: '#ffffff',
-    },
-    {
-      name: 'University of Lagos',
-      logo: '/logos/unilag.jpg',
-      url: 'https://unilag.edu.ng',
-      category: 'Diploma in Computer Science',
-      badgeBg: '#ffffff',
-    },
   ],
 }
 

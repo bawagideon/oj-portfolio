@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   ShieldCheck,
   Server,
@@ -10,8 +10,6 @@ import {
   CheckCircle2,
   Sparkles,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   Loader2,
 } from 'lucide-react'
@@ -24,15 +22,156 @@ interface AboutSectionProps {
 export function AboutSection({ data = aboutData }: AboutSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [loadingClient, setLoadingClient] = useState<string | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const isInteractingRef = useRef(false)
+  const startXRef = useRef(0)
+  const startScrollLeftRef = useRef(0)
+  const hasMovedRef = useRef(false)
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -260 : 260
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  // Quadruple items to create a seamless infinite loop
+  const carouselClients = [
+    ...data.clients,
+    ...data.clients,
+    ...data.clients,
+    ...data.clients,
+  ]
+
+  // Continuous auto-sliding animation with smooth requestAnimationFrame
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    let animationFrameId: number
+
+    const step = () => {
+      if (!isInteractingRef.current && container) {
+        // Continuous slow glide: ~0.65px per frame
+        container.scrollLeft += 0.65
+
+        // Seamless wrap: when halfway through the 4 sets, jump back by half
+        const halfWidth = container.scrollWidth / 2
+        if (halfWidth > 0 && container.scrollLeft >= halfWidth) {
+          container.scrollLeft -= halfWidth
+        }
+      }
+      animationFrameId = requestAnimationFrame(step)
+    }
+
+    animationFrameId = requestAnimationFrame(step)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    }
+  }, [])
+
+  const checkWrap = () => {
+    const container = scrollRef.current
+    if (!container) return
+    const halfWidth = container.scrollWidth / 2
+    if (halfWidth <= 0) return
+
+    if (container.scrollLeft >= halfWidth * 1.5) {
+      container.scrollLeft -= halfWidth
+    } else if (container.scrollLeft <= 10) {
+      container.scrollLeft += halfWidth
     }
   }
 
+  // Mouse Drag Handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const container = scrollRef.current
+    if (!container) return
+
+    isInteractingRef.current = true
+    setIsDragging(true)
+    hasMovedRef.current = false
+    startXRef.current = e.pageX - container.offsetLeft
+    startScrollLeftRef.current = container.scrollLeft
+
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current)
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return
+    const container = scrollRef.current
+    if (!container) return
+
+    e.preventDefault()
+    const x = e.pageX - container.offsetLeft
+    const walk = (x - startXRef.current) * 1.2
+    if (Math.abs(walk) > 4) {
+      hasMovedRef.current = true
+    }
+
+    container.scrollLeft = startScrollLeftRef.current - walk
+
+    const halfWidth = container.scrollWidth / 2
+    if (halfWidth > 0) {
+      if (container.scrollLeft >= halfWidth) {
+        container.scrollLeft -= halfWidth
+        startScrollLeftRef.current -= halfWidth
+      } else if (container.scrollLeft <= 0) {
+        container.scrollLeft += halfWidth
+        startScrollLeftRef.current += halfWidth
+      }
+    }
+  }
+
+  const handleMouseUp = () => {
+    if (!isDragging) return
+    setIsDragging(false)
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = setTimeout(() => {
+      isInteractingRef.current = false
+    }, 1200)
+  }
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false)
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+      resumeTimeoutRef.current = setTimeout(() => {
+        isInteractingRef.current = false
+      }, 1200)
+    }
+  }
+
+  // Touch Handlers for mobile & tablet swipe
+  const handleTouchStart = () => {
+    isInteractingRef.current = true
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current)
+    }
+  }
+
+  const handleTouchEnd = () => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = setTimeout(() => {
+      isInteractingRef.current = false
+    }, 1200)
+  }
+
+  const handleWheel = () => {
+    isInteractingRef.current = true
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = setTimeout(() => {
+      isInteractingRef.current = false
+    }, 1200)
+    checkWrap()
+  }
+
   const handleClientClick = (client: (typeof data.clients)[0], e: React.MouseEvent) => {
+    // If the user was dragging/sliding, cancel link opening
+    if (hasMovedRef.current) {
+      e.preventDefault()
+      e.stopPropagation()
+      return
+    }
+
     if (!client.url) return
     setLoadingClient(client.name)
 
@@ -203,64 +342,49 @@ export function AboutSection({ data = aboutData }: AboutSectionProps) {
 
       {/* Industrial & Enterprise Clients */}
       <div>
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-          <div>
-            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1">
-              Enterprise & Industrial Environments
-            </h3>
-            <p className="text-xs md:text-sm text-muted-foreground">
-              Organizations and institutions where I have delivered hands-on technical solutions. Click to visit official websites.
-            </p>
-          </div>
-
-          {/* Manual Scroll Controls (No auto sliding) */}
-          <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-auto">
-            <span className="text-[11px] text-muted-foreground font-medium mr-1 hidden sm:inline">
-              Scroll to explore
-            </span>
-            <button
-              onClick={() => scroll('left')}
-              className="w-9 h-9 rounded-xl bg-secondary hover:bg-accent/20 border border-border hover:border-accent text-foreground flex items-center justify-center transition-all active:scale-95 shadow-xs"
-              aria-label="Scroll Left"
-              title="Scroll left"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="w-9 h-9 rounded-xl bg-secondary hover:bg-accent/20 border border-border hover:border-accent text-foreground flex items-center justify-center transition-all active:scale-95 shadow-xs"
-              aria-label="Scroll Right"
-              title="Scroll right"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+        <div className="mb-6">
+          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1">
+            Enterprise & Industrial Environments
+          </h3>
+          <p className="text-xs md:text-sm text-muted-foreground">
+            Organizations and enterprise environments where I have delivered hands-on technical solutions.
+          </p>
         </div>
 
-        {/* Scrollable Container (Interactive, clickable, no auto-scrolling) */}
+        {/* Scrollable Container with continuous auto-scroll and full user drag/swipe control */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scroll-smooth py-3 px-1 scrollbar-none snap-x snap-mandatory"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onWheel={handleWheel}
+          onScroll={checkWrap}
+          className={`flex gap-4 overflow-x-auto py-3 px-1 scrollbar-none select-none ${
+            isDragging ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
         >
-          {data.clients.map((client, index) => {
+          {carouselClients.map((client, index) => {
             const isLoading = loadingClient === client.name
             const isDangote = client.name.includes('Dangote')
             const isMolchec = client.name.includes('Molchec')
 
             return (
               <a
-                key={index}
+                key={`${client.name}-${index}`}
                 href={client.url}
                 target={client.url?.startsWith('http') ? '_blank' : undefined}
                 rel={client.url?.startsWith('http') ? 'noopener noreferrer' : undefined}
                 onClick={(e) => handleClientClick(client, e)}
-                className={`flex-shrink-0 snap-start w-48 md:w-56 h-36 md:h-40 bg-card hover:bg-secondary/70 rounded-2xl md:rounded-3xl border border-border hover:border-accent flex flex-col items-center justify-between p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group relative cursor-pointer overflow-hidden ${
+                className={`flex-shrink-0 w-48 md:w-56 h-36 md:h-40 bg-card hover:bg-secondary/70 rounded-2xl md:rounded-3xl border border-border hover:border-accent flex flex-col items-center justify-between p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group relative cursor-pointer select-none overflow-hidden ${
                   isLoading ? 'ring-2 ring-accent scale-[0.98]' : ''
                 }`}
                 title={`Visit official website: ${client.name}`}
               >
                 {/* Subtle Interactive Status Corner Badge */}
-                <div className="absolute top-2.5 right-2.5 flex items-center gap-1 z-10">
+                <div className="absolute top-2.5 right-2.5 flex items-center gap-1 z-10 pointer-events-none">
                   {isLoading ? (
                     <span className="flex items-center gap-1 text-[10px] font-semibold text-accent bg-accent/15 px-2 py-0.5 rounded-full animate-pulse">
                       <Loader2 className="w-3 h-3 animate-spin" />
@@ -273,9 +397,9 @@ export function AboutSection({ data = aboutData }: AboutSectionProps) {
                   )}
                 </div>
 
-                {/* Logo Badge Container with Curved Corners and Matching Solid Background */}
+                {/* Logo Badge Container with Curved Corners and Solid Background */}
                 <div
-                  className="w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-xs"
+                  className="w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-xs pointer-events-none"
                   style={{
                     backgroundColor: isDangote
                       ? '#1c174d'
@@ -287,18 +411,17 @@ export function AboutSection({ data = aboutData }: AboutSectionProps) {
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className={`max-h-full max-w-full ${
-                      isDangote
+                    draggable={false}
+                    className={`select-none pointer-events-none ${
+                      isDangote || isMolchec
                         ? 'w-full h-full object-cover'
-                        : isMolchec
-                        ? 'w-full h-full object-cover'
-                        : 'p-1.5 object-contain'
+                        : 'max-h-full max-w-full p-2 object-contain'
                     }`}
                   />
                 </div>
 
                 {/* Client Name and Category */}
-                <div className="text-center w-full px-1">
+                <div className="text-center w-full px-1 pointer-events-none">
                   <h4 className="text-xs md:text-sm font-bold text-foreground group-hover:text-accent transition-colors truncate">
                     {client.name}
                   </h4>
@@ -309,7 +432,7 @@ export function AboutSection({ data = aboutData }: AboutSectionProps) {
 
                 {/* Subtle Interactive Loading / Click Feedback Shimmer Bar */}
                 <div
-                  className={`w-full h-0.5 rounded-full transition-all duration-300 ${
+                  className={`w-full h-0.5 rounded-full transition-all duration-300 pointer-events-none ${
                     isLoading
                       ? 'bg-accent animate-pulse'
                       : 'bg-transparent group-hover:bg-accent/40'
